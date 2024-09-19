@@ -33,11 +33,9 @@ def plot_avg_education_pie_by_gender(engine):
             colors = colors, 
             wedgeprops = {'edgecolor': 'black'})
 
-    # Añadir título
     plt.title('Promedio del Índice Educativo por Género')
 
-    # Mostrar el gráfico
-    plt.axis('equal')  # Asegurar que el gráfico sea un círculo perfecto
+    plt.axis('equal') 
     plt.show()
 
 def plot_avg_education_by_country(engine):
@@ -55,7 +53,6 @@ def plot_avg_education_by_country(engine):
     # Ejecutar la consulta y obtener los datos en un DataFrame
     avg_country_edu = pd.read_sql(consulta, con = engine)
 
-    # Verificar el DataFrame
     print(avg_country_edu)
 
     # Creación del gráfico de barras
@@ -67,11 +64,9 @@ def plot_avg_education_by_country(engine):
     plt.xlabel('Promedio del Índice Educativo')
     plt.ylabel('País')
 
-    # Mostrar el gráfico
     plt.show()
 
 def plot_avg_unemployment_by_gender(engine):
-    # Consulta SQL
     consulta = """
     SELECT g.gender AS gender, 
            ROUND(AVG(d.value_unemployment), 2) AS avg_unem 
@@ -92,17 +87,14 @@ def plot_avg_unemployment_by_gender(engine):
     plt.figure(figsize=(8, 5))
     sns.barplot(x = 'gender', y = 'avg_unem', hue = 'gender', data = avg_gender_unem, palette = 'magma', legend = False)
 
-    # Añadir etiquetas y título
     plt.title('Promedio de la Tasa de Desempleo por Género')
     plt.xlabel('Género')
     plt.ylabel('Promedio de Tasa de Desempleo')
 
-    # Mostrar el gráfico
     plt.show()
 
 
 def plot_avg_unemployment_by_education_level(engine):
-    # Consulta SQL
     consulta = """
     SELECT d.id_level AS level_education, 
            ROUND(AVG(d.value_unemployment), 2) AS avg_unem 
@@ -114,24 +106,20 @@ def plot_avg_unemployment_by_education_level(engine):
     # Ejecutar la consulta y obtener los datos en un DataFrame
     avg_leveledu_unem = pd.read_sql(consulta, con=engine)
 
-    # Verificar el DataFrame
     print(avg_leveledu_unem)
 
     # Creación del gráfico de barras
     plt.figure(figsize = (10, 6))
     sns.barplot(x = 'avg_unem', y = 'level_education', hue = 'level_education', data = avg_leveledu_unem, palette = 'viridis', legend = False)
 
-    # Añadir etiquetas y título
     plt.title('Promedio de la Tasa de Desempleo por Nivel Educativo')
     plt.xlabel('Promedio de Tasa de Desempleo')
     plt.ylabel('Nivel Educativo')
 
-    # Mostrar el gráfico
     plt.show()
 
 
 def plot_avg_unemployment_and_education_by_year(engine):
-    # Consulta SQL
     consulta = """
     SELECT d.year AS year, 
            ROUND(AVG(d.value_unemployment), 2) AS avg_unem, 
@@ -141,10 +129,8 @@ def plot_avg_unemployment_and_education_by_year(engine):
     ORDER BY year
     """
     
-    # Ejecutar la consulta y obtener los datos en un DataFrame
     avg_edu_unem = pd.read_sql(consulta, con=engine)
 
-    # Verificar el DataFrame
     print(avg_edu_unem)
 
     # Creación del gráfico de líneas
@@ -152,19 +138,16 @@ def plot_avg_unemployment_and_education_by_year(engine):
     sns.lineplot(x = 'year', y = 'avg_unem', data = avg_edu_unem, label = 'Promedio de Tasa de Desempleo', color = 'blue', marker = 'o')
     sns.lineplot(x = 'year', y = 'avg_edu', data = avg_edu_unem, label = 'Promedio del Índice Educativo', color = 'orange', marker = 'o')
 
-    # Añadir etiquetas y título
     plt.title('Promedio de la Tasa de Desempleo y del Índice Educativo a lo Largo de los Años')
     plt.xlabel('Año')
     plt.ylabel('Valores Promedios')
     plt.legend()
 
-    # Mostrar el gráfico
     plt.grid(True)  # Añadir cuadrícula para mejor visualización
     plt.show()
 
 
 def plot_avg_education_by_country2(engine):
-    # Consulta SQL
     consulta = """
     SELECT c.country_name AS country, 
            ROUND(AVG(d.indice_educativo), 2) AS avg_edu, 
@@ -178,28 +161,33 @@ def plot_avg_education_by_country2(engine):
     GROUP BY c.country_name 
     ORDER BY avg_edu DESC
     """
-    
-    # Leer la consulta SQL en un DataFrame
+
+    # Ejecutar la consulta y obtener los datos en un DataFrame
     category_country = pd.read_sql(consulta, con=engine)
 
-    # Verificar el DataFrame
     print(category_country)
 
     # Creación del gráfico de barras
     plt.figure(figsize = (12, 8))
     sns.barplot(x = 'avg_edu', y = 'country', hue = 'categoria_educativa', data = category_country, palette = 'pastel')
 
-    # Añadir etiquetas y título
     plt.title('Promedio del Índice Educativo por País')
     plt.xlabel('Promedio del Índice Educativo')
     plt.ylabel('País')
 
-    # Mostrar el gráfico
     plt.legend(title = 'Categoría Educativa')
     plt.grid(axis='x')  # Añadir cuadrícula para mejor visualización
     plt.show()
 
+def desv_tip(engine):
+    consulta = """
+    SELECT ROUND(STDDEV_POP(d.indice_educativo), 2) AS desviacion_tipica
+    FROM project_ue.datos_educativos AS d;
+    """
 
+    desv_tipica = pd.read_sql(consulta, con=engine)
+
+    return desv_tipica
 
 
 
