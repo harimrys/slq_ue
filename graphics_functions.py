@@ -85,7 +85,7 @@ def plot_avg_unemployment_by_gender(engine):
 
     # Creación del gráfico de barras
     plt.figure(figsize=(8, 5))
-    sns.barplot(x = 'gender', y = 'avg_unem', hue = 'gender', data = avg_gender_unem, palette = 'magma', legend = False)
+    sns.barplot(x = 'gender', y = 'avg_unem', hue = 'gender', data = avg_gender_unem, palette = ['#ff6699' if gender == 'Females' else '#6699ff' for gender in avg_gender_unem['gender']], legend = False)
 
     plt.title('Promedio de la Tasa de Desempleo por Género')
     plt.xlabel('Género')
@@ -169,7 +169,7 @@ def plot_avg_education_by_country2(engine):
 
     # Creación del gráfico de barras
     plt.figure(figsize = (12, 8))
-    sns.barplot(x = 'avg_edu', y = 'country', hue = 'categoria_educativa', data = category_country, palette = 'pastel')
+    sns.barplot(x = 'avg_edu', y = 'country', hue = 'categoria_educativa', data = category_country, palette = 'viridis')
 
     plt.title('Promedio del Índice Educativo por País')
     plt.xlabel('Promedio del Índice Educativo')
