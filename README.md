@@ -33,7 +33,7 @@ Este proyecto incluye un esquema relacional de las tablas en MySQL, conectadas m
 ## Proyecto de Clase
 Este es un proyecto realizado en el curso de **Ironhack**, como parte del aprendizaje sobre el uso de MySQL. 
 
-[Enlace a la presentación](#)
+[Enlace a la presentación](https://www.canva.com/design/DAGRNwf_qHE/yfPt7PU10YwyXikdkXuFCg/edit?utm_content=DAGRNwf_qHE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Autoras
 - **Haridian Morays**
